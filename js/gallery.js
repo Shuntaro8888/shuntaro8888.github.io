@@ -14,10 +14,14 @@ function activateGallery() {
 
     // サムネがクリックされるのを待つようにforEach，EventListener
     thumbnails.forEach(function (thumbnail) {
+        // 大画像をプリロードする
+        let newImageSrc = thumbnail.dataset.largeVersion;
+        let largeVersion = new Image(); //Imageオブジェクトを作り
+        largeVersion.src = newImageSrc; //ここで初めてプリロードが始まる
+
         thumbnail.addEventListener("click", function () {
             // クリックされたサムネ画像を新しいメイン画像として定義，メイン画像をセット
-            let newImageSrc = thumbnail.dataset.largeVersion;
-            mainImage.setAttribute("src", newImageSrc);
+            mainImage.setAttribute("src", largeVersion.src);
             mainImage.setAttribute("alt", thumbnail.alt);
 
             // クリックされた画像を選択中の画像として表示（オレンジ枠をつける）
